@@ -11,14 +11,12 @@ export default class Calculator extends Component {
 }
 
 const CalculatorPresenter = props => {
-  const lessThanTenArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const inputNums = lessThanTenArr.map((num, i) => (
-    <tr>
-      <td>
-        <input key={i} type="number" value={num} />
-      </td>
-    </tr>
-  ));
+  const inputNums = [];
+  var num = 0;
+  for (var i = 1; i < 10; i++) {
+    inputNums.push(<button>{i}</button>);
+  }
+  console.log(inputNums);
 
   const display = <div className="display" />;
   return (
