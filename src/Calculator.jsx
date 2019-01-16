@@ -19,8 +19,11 @@ const CalculatorPresenter = props => {
       </td>
     </tr>
   ));
+
+  const display = <div className="display" />;
   return (
-    <div className="numGrid">
+    <div className="calcBody">
+      {display}
       <table>
         <tbody>{inputNums}</tbody>
       </table>
