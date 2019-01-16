@@ -11,5 +11,19 @@ export default class Calculator extends Component {
 }
 
 const CalculatorPresenter = props => {
-  return <p>Hello</p>;
+  const lessThanTenArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const inputNums = lessThanTenArr.map((num, i) => (
+    <tr>
+      <td>
+        <input key={i} type="number" value={num} />
+      </td>
+    </tr>
+  ));
+  return (
+    <div className="numGrid">
+      <table>
+        <tbody>{inputNums}</tbody>
+      </table>
+    </div>
+  );
 };
