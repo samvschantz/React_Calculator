@@ -2,3 +2,16 @@
   font-family: sans-serif;
   text-align: center;
 }
+.display {
+  float: right;
+  width: 200px;
+  height: 50px;
+  border: 2px solid black;
+}
+
+table {
+  float: right;
+  clear: right;
+  width: 204px;
+  border: 2px solid black;
+}
