@@ -4,18 +4,21 @@ export default class Calculator extends Component {
   constructor(props) {
     super(props);
     this.state = { display: 0 };
-    this.onClick = this.onClick.bind(this);
+    this.addNumsToDisplay = this.addNumsToDisplay.bind(this);
   }
 
-  onClick(target) {
-    let displayThis = target.toString();
+  addNumsToDisplay(target) {
+    let displayThis =
+      this.state.display === 0
+        ? target
+        : this.state.display + target.toString();
     this.setState({ display: displayThis });
   }
 
   render() {
     return (
       <CalculatorPresenter
-        onClick={this.onClick}
+        addNumsToDisplay={this.addNumsToDisplay}
         display={this.state.display}
       />
     );
@@ -25,7 +28,7 @@ export default class Calculator extends Component {
 const CalculatorPresenter = props => {
   const lessThanTenArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const inputNums = lessThanTenArr.map(num => (
-    <button key={num} onClick={() => props.onClick(num)}>
+    <button key={num} onClick={() => props.addNumsToDisplay(num)}>
       {num}
     </button>
   ));
