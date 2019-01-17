@@ -18,12 +18,16 @@ export default class Calculator extends Component {
   }
 
   addDecimalToDisplay(target) {
-    let displayThis = "0.";
+    let displayThis = this.state.display + ".";
     if (this.state.display !== 0) {
-      displayThis =
-        this.state.display.indexOf(".") === -1
-          ? this.state.display + target.toString()
-          : this.state.display;
+      if (this.state.display.toString().length === 1) {
+        displayThis = this.state.display + ".";
+      } else {
+        displayThis =
+          this.state.display.indexOf(".") === -1
+            ? this.state.display + target.toString()
+            : this.state.display;
+      }
     }
     this.setState({ display: displayThis });
   }
@@ -53,12 +57,25 @@ const CalculatorPresenter = props => {
     </button>
   ));
 
-  const clear = <button onClick={() => props.clearDisplay()}>Clear</button>;
-
+  const topRow = (
+    <div className="topRow">
+      <button onClick={() => props.clearDisplay()}>Clear</button>;
+      <button onClick={() => props.clearDisplay()}>÷</button>;
+      <button onClick={() => props.clearDisplay()}>×</button>;
+      <button onClick={() => props.clearDisplay()}>-</button>;
+    </div>
+  );
   const bottomRow = (
     <div className="bottomRow">
       <button onClick={() => props.addNumsToDisplay(0)}>0</button>
       <button onClick={() => props.addDecimalToDisplay(".")}>.</button>
+    </div>
+  );
+
+  const rightColumn = (
+    <div className="rightColumn">
+      <button onClick={() => props.addNumsToDisplay("+")}>+</button>
+      <button>=</button>
     </div>
   );
 
@@ -68,10 +85,11 @@ const CalculatorPresenter = props => {
     <div className="calcBody">
       {display}
       <div className="table">
-        {clear}
+        {topRow}
         <div className="inputNums">{inputNums}</div>
         {bottomRow}
       </div>
+      {rightColumn}
     </div>
   );
 };

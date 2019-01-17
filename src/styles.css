@@ -1,15 +1,27 @@
+body {
+  background-color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  outline: none !important;
+}
+
 .calcBody {
   font-family: sans-serif;
   text-align: center;
-  max-width: 200px;
-  float: right;
+  max-width: 300px;
+  margin: 25% auto 0 auto;
 }
 
 .display {
   float: right;
-  width: 200px;
-  height: 50px;
-  border: 2px solid black;
+  font-family: arial;
+  width: 300px;
+  height: 20px;
+  border: 4px solid white;
+  color: white;
+  border-radius: 40px;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 50px;
 }
 
 tbody {
@@ -19,7 +31,8 @@ tbody {
 }
 
 .inputNums,
-.bottomRow {
+.bottomRow,
+.topRow {
   display: flex; /* establish flex container */
   flex-wrap: wrap; /* enable flex items to wrap */
   justify-content: space-around;
@@ -28,7 +41,13 @@ tbody {
 button {
   flex: 0 0 33.33%; /* don't grow, don't shrink, width */
   height: 50px;
-  background-color: #999;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+}
+
+button:focus {
+  outline: none;
 }
 
 .bottomRow button:nth-child(1) {
@@ -40,4 +59,25 @@ button {
 
 .table {
   display: table;
+  float: left;
+}
+
+.rightColumn {
+  float: left;
+  margin-top: 50px;
+  width: 20%;
+}
+
+.rightColumn button {
+  display: block;
+  width: 100%;
+  height: 100px;
+}
+
+.topRow {
+  margin-right: -60px;
+}
+
+.topRow button {
+  flex: 0 0 23%;
 }
