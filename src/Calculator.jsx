@@ -73,6 +73,8 @@ export default class Calculator extends Component {
       } else if (num === "=" || num === "Enter") {
         this.equals();
       }
+    } else if (num === "Backspace" || num === "Delete") {
+      this.backspace();
     } else if (!isNaN(num)) {
       this.addNumsToDisplay(num);
     }
@@ -87,8 +89,8 @@ export default class Calculator extends Component {
     let total = eval(equationString).toString();
     let historyItem = this.state.display.toString() + " = " + total;
     this.setState({
-      display: "0",
-      equationHistory: [...this.state.equationHistory, historyItem]
+      display: total,
+      equationHistory: [historyItem, ...this.state.equationHistory]
     });
   }
 
