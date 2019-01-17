@@ -7,6 +7,7 @@ export default class Calculator extends Component {
     this.addNumsToDisplay = this.addNumsToDisplay.bind(this);
     this.addDecimalToDisplay = this.addDecimalToDisplay.bind(this);
     this.clearDisplay = this.clearDisplay.bind(this);
+    this.backspace = this.backspace.bind(this);
   }
 
   addNumsToDisplay(target) {
@@ -32,6 +33,20 @@ export default class Calculator extends Component {
     this.setState({ display: displayThis });
   }
 
+  backspace() {
+    let currDisplay = this.state.display;
+    let newDisplay = "";
+    let displayString = this.state.display.toString();
+    let lastPosition = displayString[displayString.length - 1];
+    if (displayString !== "0" && lastPosition === " ") {
+      newDisplay = displayString.slice(0, displayString.length - 3);
+    } else if (displayString !== "0") {
+      newDisplay = displayString.slice(0, displayString.length - 1);
+    }
+    console.log("or passed condish");
+    this.setState({ display: newDisplay });
+  }
+
   clearDisplay() {
     this.setState({ display: 0 });
   }
@@ -41,6 +56,7 @@ export default class Calculator extends Component {
       <CalculatorPresenter
         addNumsToDisplay={this.addNumsToDisplay}
         addDecimalToDisplay={this.addDecimalToDisplay}
+        backspace={this.backspace}
         clearDisplay={this.clearDisplay}
         display={this.state.display}
       />
@@ -60,6 +76,7 @@ const CalculatorPresenter = props => {
   const topRow = (
     <div className="topRow">
       <button onClick={() => props.clearDisplay()}>Clear</button>;
+      <button onClick={() => props.backspace()}>🠘</button>;
       <button onClick={() => props.addNumsToDisplay(" ÷ ")}>÷</button>;
       <button onClick={() => props.addNumsToDisplay(" × ")}>×</button>;
       <button onClick={() => props.addNumsToDisplay(" - ")}>-</button>;
