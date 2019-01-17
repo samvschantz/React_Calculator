@@ -52,7 +52,6 @@ export default class Calculator extends Component {
     } else if (displayString !== "0" && displayString.length > 1) {
       newDisplay = displayString.slice(0, displayString.length - 1);
     }
-    console.log(currDisplay);
     this.setState({ display: newDisplay });
   }
 
@@ -80,12 +79,15 @@ export default class Calculator extends Component {
   }
 
   equals() {
+    let equation = this.state.display;
     let equationString = this.state.display.replace(/\s+/g, "");
     equationString = equationString.replace("÷", "/").replace("×", "*");
     let operatorArray = ["+", "-", "=", "*", "/", "x", "X", "Enter"];
     let timesOperatorsArray = ["*", "x", "X"];
     let total = eval(equationString).toString();
-    this.setState({ display: total });
+    let historyItem = this.state.display.toString() + " = " + total;
+    console.log(historyItem);
+    this.setState({ display: total, equationHistory: historyItem });
   }
 
   render() {
@@ -96,6 +98,7 @@ export default class Calculator extends Component {
         backspace={this.backspace}
         clearDisplay={this.clearDisplay}
         display={this.state.display}
+        equationHistory={this.state.equationHistory}
       />
     );
   }
@@ -112,11 +115,11 @@ const CalculatorPresenter = props => {
 
   const topRow = (
     <div className="topRow">
-      <button onClick={() => props.clearDisplay()}>Clear</button>;
-      <button onClick={() => props.backspace()}>🠘</button>;
-      <button onClick={() => props.addNumsToDisplay(" ÷ ")}>÷</button>;
-      <button onClick={() => props.addNumsToDisplay(" × ")}>×</button>;
-      <button onClick={() => props.addNumsToDisplay(" - ")}>-</button>;
+      <button onClick={() => props.clearDisplay()}>Clear</button>
+      <button onClick={() => props.backspace()}>🠘</button>
+      <button onClick={() => props.addNumsToDisplay(" ÷ ")}>÷</button>
+      <button onClick={() => props.addNumsToDisplay(" × ")}>×</button>
+      <button onClick={() => props.addNumsToDisplay(" - ")}>-</button>
     </div>
   );
   const bottomRow = (
@@ -135,15 +138,26 @@ const CalculatorPresenter = props => {
 
   const display = <div className="display">{props.display}</div>;
 
+  let equationHistory = <div />;
+
+  if (props.equationHistory.length > 0) {
+    equationHistory = (
+      <div className="equationHistory">{props.equationHistory}</div>
+    );
+  }
+
   return (
-    <div className="calcBody">
-      {display}
-      <div className="table">
-        {topRow}
-        <div className="inputNums">{inputNums}</div>
-        {bottomRow}
+    <div>
+      {equationHistory}
+      <div className="calcBody">
+        {display}
+        <div className="table">
+          {topRow}
+          <div className="inputNums">{inputNums}</div>
+          {bottomRow}
+        </div>
+        {rightColumn}
       </div>
-      {rightColumn}
     </div>
   );
 };

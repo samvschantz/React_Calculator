@@ -2,6 +2,7 @@ body {
   background-color: black;
   font-family: Arial, Helvetica, sans-serif;
   outline: none !important;
+  color: white;
 }
 
 .calcBody {
@@ -79,5 +80,5 @@ button:focus {
 }
 
 .topRow button {
-  flex: 0 0 18.35%;
+  flex: 0 0 20%;
 }
