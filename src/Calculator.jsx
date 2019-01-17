@@ -8,6 +8,11 @@ export default class Calculator extends Component {
     this.addDecimalToDisplay = this.addDecimalToDisplay.bind(this);
     this.clearDisplay = this.clearDisplay.bind(this);
     this.backspace = this.backspace.bind(this);
+    this.handleKeydown = this.handleKeydown.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeydown);
   }
 
   addNumsToDisplay(target) {
@@ -43,12 +48,28 @@ export default class Calculator extends Component {
     } else if (displayString !== "0" && displayString.length > 1) {
       newDisplay = displayString.slice(0, displayString.length - 1);
     }
-    console.log("or passed condish");
     this.setState({ display: newDisplay });
   }
 
   clearDisplay() {
     this.setState({ display: 0 });
+  }
+
+  handleKeydown(key) {
+    let num = key.key;
+    let operatorArray = ["+", "-", "=", "*", "/", "x", "X", "Enter"];
+    let timesOperatorsArray = ["*", "x", "X"];
+    if (operatorArray.includes(num)) {
+      if (operatorArray.indexOf(num) < 2) {
+        this.addNumsToDisplay(" " + num + " ");
+      } else if (timesOperatorsArray.includes(num)) {
+        this.addNumsToDisplay(" × ");
+      } else if (num === "/") {
+        this.addNumsToDisplay(" ÷ ");
+      }
+    } else if (!isNaN(num)) {
+      this.addNumsToDisplay(num);
+    }
   }
 
   render() {
