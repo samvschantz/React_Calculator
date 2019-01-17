@@ -60,9 +60,9 @@ const CalculatorPresenter = props => {
   const topRow = (
     <div className="topRow">
       <button onClick={() => props.clearDisplay()}>Clear</button>;
-      <button onClick={() => props.clearDisplay()}>÷</button>;
-      <button onClick={() => props.clearDisplay()}>×</button>;
-      <button onClick={() => props.clearDisplay()}>-</button>;
+      <button onClick={() => props.addNumsToDisplay(" ÷ ")}>÷</button>;
+      <button onClick={() => props.addNumsToDisplay(" × ")}>×</button>;
+      <button onClick={() => props.addNumsToDisplay(" - ")}>-</button>;
     </div>
   );
   const bottomRow = (
@@ -74,7 +74,7 @@ const CalculatorPresenter = props => {
 
   const rightColumn = (
     <div className="rightColumn">
-      <button onClick={() => props.addNumsToDisplay("+")}>+</button>
+      <button onClick={() => props.addNumsToDisplay(" + ")}>+</button>
       <button>=</button>
     </div>
   );
