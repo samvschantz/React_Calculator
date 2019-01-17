@@ -22,20 +22,40 @@ export default class Calculator extends Component {
 
   addNumsToDisplay(target) {
     let displayThis = 0;
-    console.log(this.state.answerInDisplay);
-    if (this.state.answerInDisplay === false) {
+    console.log(target);
+    console.log("eval(this.state.display) " + eval(this.state.display));
+    console.log("target.toString() " + target.toString());
+    console.log("this.state.answerInDisplay " + this.state.answerInDisplay);
+
+    if (eval(this.state.display) === 0 && target.toString() === "0") {
+      console.log(
+        "this condition should only & always fire when pressing 0 key on 0 display"
+      );
+      displayThis = 0;
+    } else if (this.state.answerInDisplay !== true) {
+      console.log("should fire because answer is not in display");
+      console.log(target);
       displayThis =
         this.state.display === 0 || this.state.display === "0"
           ? target
           : this.state.display + target.toString();
-    } else if (
-      this.state.answerInDisplay === true &&
-      !isNaN(target) === false
-    ) {
-      displayThis = this.state.display + target.toString();
-      this.setState({ answerInDisplay: false });
     }
     this.setState({ display: displayThis });
+
+    // console.log(this.state.answerInDisplay);
+    // if (this.state.answerInDisplay === false) {
+    //   displayThis =
+    //     this.state.display === 0 || this.state.display === "0"
+    //       ? target
+    //       : this.state.display + target.toString();
+    // } else if (
+    //   this.state.answerInDisplay === true &&
+    //   !isNaN(target) === false
+    // ) {
+    //   displayThis = this.state.display + target.toString();
+    //   this.setState({ answerInDisplay: false });
+    // }
+    // this.setState({ display: displayThis });
   }
 
   addDecimalToDisplay(target) {
