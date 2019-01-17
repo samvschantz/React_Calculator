@@ -9,6 +9,7 @@ export default class Calculator extends Component {
     this.clearDisplay = this.clearDisplay.bind(this);
     this.backspace = this.backspace.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
+    this.equals = this.equals.bind(this);
   }
 
   componentDidMount() {
@@ -66,10 +67,26 @@ export default class Calculator extends Component {
         this.addNumsToDisplay(" × ");
       } else if (num === "/") {
         this.addNumsToDisplay(" ÷ ");
+      } else if (num === "=" || num === "Enter") {
+        this.equals();
       }
     } else if (!isNaN(num)) {
       this.addNumsToDisplay(num);
     }
+  }
+
+  equals() {
+    let equationString = this.state.display.replace(/\s+/g, "");
+    equationString = equationString.replace("÷", "/").replace("×", "*");
+    let operatorArray = ["+", "-", "=", "*", "/", "x", "X", "Enter"];
+    let timesOperatorsArray = ["*", "x", "X"];
+    console.log(equationString);
+    let total = 0;
+    equationString = equationString.match(/[+\-]*(\.\d+|\d+(\.\d+)?)/g) || [];
+    while (equationString.length) {
+      total += parseFloat(equationString.shift());
+    }
+    console.log(total);
   }
 
   render() {
