@@ -12,7 +12,7 @@ export default class Calculator extends Component {
 
   addNumsToDisplay(target) {
     let displayThis =
-      this.state.display === 0
+      this.state.display === 0 || this.state.display === "0"
         ? target
         : this.state.display + target.toString();
     this.setState({ display: displayThis });
@@ -35,12 +35,12 @@ export default class Calculator extends Component {
 
   backspace() {
     let currDisplay = this.state.display;
-    let newDisplay = "";
+    let newDisplay = "0";
     let displayString = this.state.display.toString();
     let lastPosition = displayString[displayString.length - 1];
     if (displayString !== "0" && lastPosition === " ") {
       newDisplay = displayString.slice(0, displayString.length - 3);
-    } else if (displayString !== "0") {
+    } else if (displayString !== "0" && displayString.length > 1) {
       newDisplay = displayString.slice(0, displayString.length - 1);
     }
     console.log("or passed condish");
