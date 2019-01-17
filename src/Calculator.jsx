@@ -3,7 +3,10 @@ import React, { Component } from "react";
 export default class Calculator extends Component {
   constructor(props) {
     super(props);
-    this.state = { display: 0 };
+    this.state = {
+      display: 0,
+      equationHistory: ""
+    };
     this.addNumsToDisplay = this.addNumsToDisplay.bind(this);
     this.addDecimalToDisplay = this.addDecimalToDisplay.bind(this);
     this.clearDisplay = this.clearDisplay.bind(this);
@@ -49,6 +52,7 @@ export default class Calculator extends Component {
     } else if (displayString !== "0" && displayString.length > 1) {
       newDisplay = displayString.slice(0, displayString.length - 1);
     }
+    console.log(currDisplay);
     this.setState({ display: newDisplay });
   }
 
@@ -80,13 +84,8 @@ export default class Calculator extends Component {
     equationString = equationString.replace("÷", "/").replace("×", "*");
     let operatorArray = ["+", "-", "=", "*", "/", "x", "X", "Enter"];
     let timesOperatorsArray = ["*", "x", "X"];
-    console.log(equationString);
-    let total = 0;
-    equationString = equationString.match(/[+\-]*(\.\d+|\d+(\.\d+)?)/g) || [];
-    while (equationString.length) {
-      total += parseFloat(equationString.shift());
-    }
-    console.log(total);
+    let total = eval(equationString).toString();
+    this.setState({ display: total });
   }
 
   render() {
