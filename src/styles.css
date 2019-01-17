@@ -17,8 +17,27 @@ tbody {
   flex-wrap: wrap; /* enable flex items to wrap */
   justify-content: space-around;
 }
+
+.inputNums,
+.bottomRow {
+  display: flex; /* establish flex container */
+  flex-wrap: wrap; /* enable flex items to wrap */
+  justify-content: space-around;
+}
+
 button {
   flex: 0 0 33.33%; /* don't grow, don't shrink, width */
   height: 50px;
   background-color: #999;
+}
+
+.bottomRow button:nth-child(1) {
+  flex: 0 0 66.66%;
+}
+.bottomRow button:nth-child(2) {
+  flex: 0 0 33.33%;
+}
+
+.table {
+  display: table;
 }

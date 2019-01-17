@@ -5,6 +5,7 @@ export default class Calculator extends Component {
     super(props);
     this.state = { display: 0 };
     this.addNumsToDisplay = this.addNumsToDisplay.bind(this);
+    this.addDecimalToDisplay = this.addDecimalToDisplay.bind(this);
   }
 
   addNumsToDisplay(target) {
@@ -15,10 +16,20 @@ export default class Calculator extends Component {
     this.setState({ display: displayThis });
   }
 
+  addDecimalToDisplay(target) {
+    console.log(this.state.display.indexOf("."));
+    let displayThis =
+      this.state.display.indexOf(".") === -1
+        ? target
+        : this.state.display + target.toString();
+    this.setState({ display: displayThis });
+  }
+
   render() {
     return (
       <CalculatorPresenter
         addNumsToDisplay={this.addNumsToDisplay}
+        addDecimalToDisplay={this.addDecimalToDisplay}
         display={this.state.display}
       />
     );
@@ -26,21 +37,30 @@ export default class Calculator extends Component {
 }
 
 const CalculatorPresenter = props => {
-  const lessThanTenArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const lessThanTenArr = [7, 8, 9, 4, 5, 6, 1, 2, 3];
+
   const inputNums = lessThanTenArr.map(num => (
     <button key={num} onClick={() => props.addNumsToDisplay(num)}>
       {num}
     </button>
   ));
 
+  const bottomRow = (
+    <div className="bottomRow">
+      <button onClick={() => props.addNumsToDisplay(0)}>0</button>
+      <button onClick={() => props.addDecimalToDisplay(".")}>.</button>
+    </div>
+  );
+
   const display = <div className="display">{props.display}</div>;
 
   return (
     <div className="calcBody">
       {display}
-      <table>
-        <tbody>{inputNums}</tbody>
-      </table>
+      <div class="table">
+        <div class="inputNums">{inputNums}</div>
+        {bottomRow}
+      </div>
     </div>
   );
 };
