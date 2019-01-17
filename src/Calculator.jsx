@@ -5,7 +5,8 @@ export default class Calculator extends Component {
     super(props);
     this.state = {
       display: 0,
-      equationHistory: []
+      equationHistory: [],
+      answerInDisplay: false
     };
     this.addNumsToDisplay = this.addNumsToDisplay.bind(this);
     this.addDecimalToDisplay = this.addDecimalToDisplay.bind(this);
@@ -20,10 +21,20 @@ export default class Calculator extends Component {
   }
 
   addNumsToDisplay(target) {
-    let displayThis =
-      this.state.display === 0 || this.state.display === "0"
-        ? target
-        : this.state.display + target.toString();
+    let displayThis = 0;
+    console.log(this.state.answerInDisplay);
+    if (this.state.answerInDisplay === false) {
+      displayThis =
+        this.state.display === 0 || this.state.display === "0"
+          ? target
+          : this.state.display + target.toString();
+    } else if (
+      this.state.answerInDisplay === true &&
+      !isNaN(target) === false
+    ) {
+      displayThis = this.state.display + target.toString();
+      this.setState({ answerInDisplay: false });
+    }
     this.setState({ display: displayThis });
   }
 
@@ -90,7 +101,8 @@ export default class Calculator extends Component {
     let historyItem = this.state.display.toString() + " = " + total;
     this.setState({
       display: total,
-      equationHistory: [historyItem, ...this.state.equationHistory]
+      equationHistory: [historyItem, ...this.state.equationHistory],
+      answerInDisplay: true
     });
   }
 
