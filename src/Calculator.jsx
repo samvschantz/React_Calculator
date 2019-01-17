@@ -17,11 +17,10 @@ export default class Calculator extends Component {
   }
 
   addDecimalToDisplay(target) {
-    console.log(this.state.display.indexOf("."));
     let displayThis =
       this.state.display.indexOf(".") === -1
-        ? target
-        : this.state.display + target.toString();
+        ? this.state.display + target.toString()
+        : this.state.display;
     this.setState({ display: displayThis });
   }
 
