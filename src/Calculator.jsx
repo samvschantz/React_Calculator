@@ -56,8 +56,8 @@ const CalculatorPresenter = props => {
   return (
     <div className="calcBody">
       {display}
-      <div class="table">
-        <div class="inputNums">{inputNums}</div>
+      <div className="table">
+        <div className="inputNums">{inputNums}</div>
         {bottomRow}
       </div>
     </div>
