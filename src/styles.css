@@ -82,3 +82,12 @@ button:focus {
 .topRow button {
   flex: 0 0 20%;
 }
+
+.equationHistoryBox {
+  position: absolute;
+  top: 10px;
+}
+
+.equationHistory:nth-child(n + 2) {
+  margin-top: 20px;
+}

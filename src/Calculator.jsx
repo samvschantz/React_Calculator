@@ -5,7 +5,7 @@ export default class Calculator extends Component {
     super(props);
     this.state = {
       display: 0,
-      equationHistory: ""
+      equationHistory: []
     };
     this.addNumsToDisplay = this.addNumsToDisplay.bind(this);
     this.addDecimalToDisplay = this.addDecimalToDisplay.bind(this);
@@ -86,8 +86,10 @@ export default class Calculator extends Component {
     let timesOperatorsArray = ["*", "x", "X"];
     let total = eval(equationString).toString();
     let historyItem = this.state.display.toString() + " = " + total;
-    console.log(historyItem);
-    this.setState({ display: total, equationHistory: historyItem });
+    this.setState({
+      display: "0",
+      equationHistory: [...this.state.equationHistory, historyItem]
+    });
   }
 
   render() {
@@ -141,14 +143,16 @@ const CalculatorPresenter = props => {
   let equationHistory = <div />;
 
   if (props.equationHistory.length > 0) {
-    equationHistory = (
-      <div className="equationHistory">{props.equationHistory}</div>
-    );
+    equationHistory = props.equationHistory.map((equation, i) => (
+      <div key={i} className="equationHistory">
+        {equation}
+      </div>
+    ));
   }
 
   return (
     <div>
-      {equationHistory}
+      <div className="equationHistoryBox">{equationHistory}</div>
       <div className="calcBody">
         {display}
         <div className="table">
