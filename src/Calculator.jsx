@@ -22,18 +22,17 @@ export default class Calculator extends Component {
 
   addNumsToDisplay(target) {
     let displayThis = 0;
-    console.log(target);
-    console.log(isNaN(target));
-    let operatorArray = ["+", "-", "=", "*", "/", "x", "X", "Enter"];
+    // console.log(target);
+    // console.log("this.state.answerInDisplay " + this.state.answerInDisplay);
+    // console.log("This is the string " + this.state.display.toString());
+    // console.log(isNaN(target));
+    let operatorArray = [" + ", " - ", " ÷ ", " × "];
     //If 0 is in display do not add more numbers
     //If 0 is in the display only add numbers
     if (
       (this.state.display.toString() === "0" && target.toString() === "0") ||
       (this.state.display.toString() === "0" && isNaN(target) === true)
     ) {
-      console.log(
-        "this condition should only & always fire when pressing 0 key on 0 display"
-      );
       displayThis = 0;
     } else if (this.state.answerInDisplay !== true) {
       //If answer is not in display check if we are putting first num in display or adding to display
@@ -41,9 +40,15 @@ export default class Calculator extends Component {
         this.state.display === 0 || this.state.display === "0"
           ? target
           : this.state.display + target.toString();
-    } else if (this.state.answerInDisplay !== true) {
+    } else if (this.state.answerInDisplay === true) {
       //Since answer is in display we will only add operators
       //If target is a number we will start from scratch with this entry
+      console.log(
+        "operatorArray.includes(target) " + operatorArray.includes(target)
+      );
+      displayThis = operatorArray.includes(target)
+        ? this.state.display + target.toString()
+        : target;
     }
     this.setState({ display: displayThis });
 
