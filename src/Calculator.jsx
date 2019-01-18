@@ -13,11 +13,13 @@ export default class Calculator extends Component {
     this.clearDisplay = this.clearDisplay.bind(this);
     this.backspace = this.backspace.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
+    this.handleKeyup = this.handleKeyup.bind(this);
     this.equals = this.equals.bind(this);
   }
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeydown);
+    document.addEventListener("keyup", this.handleKeyup);
   }
 
   addToDisplay(target) {
@@ -113,6 +115,13 @@ export default class Calculator extends Component {
       //adds actual numbers!
       this.addToDisplay(num);
     }
+    this.setState({ buttonPress: num });
+  }
+
+  handleKeyup(key) {
+    this.setState({
+      buttonPress: ""
+    });
   }
 
   equals() {
@@ -139,6 +148,7 @@ export default class Calculator extends Component {
         clearDisplay={this.clearDisplay}
         equals={this.equals}
         display={this.state.display}
+        buttonPress={this.state.buttonPress}
         equationHistory={this.state.equationHistory}
       />
     );
@@ -148,11 +158,25 @@ export default class Calculator extends Component {
 const CalculatorPresenter = props => {
   const lessThanTenArr = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 
-  const inputNums = lessThanTenArr.map(num => (
-    <button key={num} onClick={() => props.addToDisplay(num)}>
-      {num}
-    </button>
-  ));
+  const inputNums = lessThanTenArr.map(function(num) {
+    if (num.toString() === props.buttonPress) {
+      return (
+        <button
+          key={num}
+          className={"pressed"}
+          onClick={() => props.addToDisplay(num)}
+        >
+          {num}
+        </button>
+      );
+    } else {
+      return (
+        <button key={num} onClick={() => props.addToDisplay(num)}>
+          {num}
+        </button>
+      );
+    }
+  });
 
   const topRow = (
     <div className="topRow">
