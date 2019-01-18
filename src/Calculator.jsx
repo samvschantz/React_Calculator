@@ -52,21 +52,6 @@ export default class Calculator extends Component {
       }
     }
     this.setState({ display: displayThis });
-
-    // console.log(this.state.answerInDisplay);
-    // if (this.state.answerInDisplay === false) {
-    //   displayThis =
-    //     this.state.display === 0 || this.state.display === "0"
-    //       ? target
-    //       : this.state.display + target.toString();
-    // } else if (
-    //   this.state.answerInDisplay === true &&
-    //   !isNaN(target) === false
-    // ) {
-    //   displayThis = this.state.display + target.toString();
-    //   this.setState({ answerInDisplay: false });
-    // }
-    // this.setState({ display: displayThis });
   }
 
   addDecimalToDisplay(target) {
@@ -144,6 +129,7 @@ export default class Calculator extends Component {
         addDecimalToDisplay={this.addDecimalToDisplay}
         backspace={this.backspace}
         clearDisplay={this.clearDisplay}
+        equals={this.equals}
         display={this.state.display}
         equationHistory={this.state.equationHistory}
       />
@@ -179,7 +165,7 @@ const CalculatorPresenter = props => {
   const rightColumn = (
     <div className="rightColumn">
       <button onClick={() => props.addNumsToDisplay(" + ")}>+</button>
-      <button>=</button>
+      <button onClick={() => props.equals()}>=</button>
     </div>
   );
 
