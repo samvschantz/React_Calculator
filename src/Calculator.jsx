@@ -22,10 +22,6 @@ export default class Calculator extends Component {
 
   addNumsToDisplay(target) {
     let displayThis = 0;
-    // console.log(target);
-    // console.log("this.state.answerInDisplay " + this.state.answerInDisplay);
-    // console.log("This is the string " + this.state.display.toString());
-    // console.log(isNaN(target));
     let operatorArray = [" + ", " - ", " ÷ ", " × ", "."];
     //If 0 is in display do not add more numbers
     //If 0 is in the display only add numbers
