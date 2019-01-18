@@ -23,6 +23,8 @@ export default class Calculator extends Component {
   addToDisplay(target) {
     let displayThis = 0;
     let operatorArray = [" + ", " - ", " ÷ ", " × ", "."];
+    let displayString = this.state.display.toString();
+    let lastInDisplay = displayString[displayString.length - 1];
     //If 0 is in display do not add more numbers
     //If 0 is in the display only add numbers
     if (
@@ -46,6 +48,9 @@ export default class Calculator extends Component {
         displayThis = target;
         this.setState({ answerInDisplay: false });
       }
+    }
+    if (lastInDisplay === " " && operatorArray.includes(target)) {
+      displayThis = displayString;
     }
     this.setState({ display: displayThis });
   }
