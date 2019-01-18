@@ -43,12 +43,13 @@ export default class Calculator extends Component {
     } else if (this.state.answerInDisplay === true) {
       //Since answer is in display we will only add operators
       //If target is a number we will start from scratch with this entry
-      console.log(
-        "operatorArray.includes(target) " + operatorArray.includes(target)
-      );
-      displayThis = operatorArray.includes(target)
-        ? this.state.display + target.toString()
-        : target;
+      if (operatorArray.includes(target)) {
+        displayThis = this.state.display + target.toString();
+        this.setState({ answerInDisplay: false });
+      } else {
+        displayThis = target;
+        this.setState({ answerInDisplay: false });
+      }
     }
     this.setState({ display: displayThis });
 
