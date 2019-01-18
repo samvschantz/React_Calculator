@@ -26,7 +26,7 @@ export default class Calculator extends Component {
     // console.log("this.state.answerInDisplay " + this.state.answerInDisplay);
     // console.log("This is the string " + this.state.display.toString());
     // console.log(isNaN(target));
-    let operatorArray = [" + ", " - ", " ÷ ", " × "];
+    let operatorArray = [" + ", " - ", " ÷ ", " × ", "."];
     //If 0 is in display do not add more numbers
     //If 0 is in the display only add numbers
     if (
@@ -94,6 +94,10 @@ export default class Calculator extends Component {
       if (operatorArray.indexOf(num) < 2) {
         this.addNumsToDisplay(" " + num + " ");
       } else if (timesOperatorsArray.includes(num)) {
+        //this catches whether or not there is already a multiplication symbol
+        if (this.state.display.indexOf("×") > -1) {
+          console.log("caught the condition");
+        }
         this.addNumsToDisplay(" × ");
       } else if (num === "/") {
         this.addNumsToDisplay(" ÷ ");
@@ -103,6 +107,7 @@ export default class Calculator extends Component {
     } else if (num === "Backspace" || num === "Delete") {
       this.backspace();
     } else if (!isNaN(num)) {
+      //adds actual numbers!
       this.addNumsToDisplay(num);
     }
   }
@@ -111,9 +116,12 @@ export default class Calculator extends Component {
     let equation = this.state.display;
     let equationString = this.state.display.replace(/\s+/g, "");
     equationString = equationString.replace("÷", "/").replace("×", "*");
+    equationString = equationString.toString();
     let operatorArray = ["+", "-", "=", "*", "/", "x", "X", "Enter"];
     let timesOperatorsArray = ["*", "x", "X"];
-    let total = eval(equationString).toString();
+    let total = new Function("return (" + equationString + ")")();
+    //    return (new Function( 'return (' + string + ')' )());
+
     let historyItem = this.state.display.toString() + " = " + total;
     this.setState({
       display: total,

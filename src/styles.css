@@ -50,7 +50,8 @@ button {
   height: 50px;
   background-color: black;
   color: #ebebeb;
-  border-radius: 10px;
+  border-radius: 5px;
+  border: 1px solid #ebebeb;
 }
 
 button:focus {
