@@ -8,7 +8,7 @@ export default class Calculator extends Component {
       equationHistory: [],
       answerInDisplay: false
     };
-    this.addNumsToDisplay = this.addNumsToDisplay.bind(this);
+    this.addToDisplay = this.addToDisplay.bind(this);
     this.addDecimalToDisplay = this.addDecimalToDisplay.bind(this);
     this.clearDisplay = this.clearDisplay.bind(this);
     this.backspace = this.backspace.bind(this);
@@ -20,7 +20,7 @@ export default class Calculator extends Component {
     document.addEventListener("keydown", this.handleKeydown);
   }
 
-  addNumsToDisplay(target) {
+  addToDisplay(target) {
     let displayThis = 0;
     let operatorArray = [" + ", " - ", " ÷ ", " × ", "."];
     //If 0 is in display do not add more numbers
@@ -88,17 +88,17 @@ export default class Calculator extends Component {
     let timesOperatorsArray = ["*", "x", "X"];
     if (operatorArray.includes(num)) {
       if (operatorArray.indexOf(num) < 2) {
-        this.addNumsToDisplay(" " + num + " ");
+        this.addToDisplay(" " + num + " ");
       } else if (timesOperatorsArray.includes(num)) {
         if (this.state.display.indexOf("×") > -1) {
           this.equals();
         }
-        this.addNumsToDisplay(" × ");
+        this.addToDisplay(" × ");
       } else if (num === "/") {
         if (this.state.display.indexOf("÷") > -1) {
           this.equals();
         }
-        this.addNumsToDisplay(" ÷ ");
+        this.addToDisplay(" ÷ ");
       } else if (num === "=" || num === "Enter") {
         this.equals();
       }
@@ -106,7 +106,7 @@ export default class Calculator extends Component {
       this.backspace();
     } else if (!isNaN(num)) {
       //adds actual numbers!
-      this.addNumsToDisplay(num);
+      this.addToDisplay(num);
     }
   }
 
@@ -128,7 +128,7 @@ export default class Calculator extends Component {
   render() {
     return (
       <CalculatorPresenter
-        addNumsToDisplay={this.addNumsToDisplay}
+        addToDisplay={this.addToDisplay}
         addDecimalToDisplay={this.addDecimalToDisplay}
         backspace={this.backspace}
         clearDisplay={this.clearDisplay}
@@ -144,7 +144,7 @@ const CalculatorPresenter = props => {
   const lessThanTenArr = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 
   const inputNums = lessThanTenArr.map(num => (
-    <button key={num} onClick={() => props.addNumsToDisplay(num)}>
+    <button key={num} onClick={() => props.addToDisplay(num)}>
       {num}
     </button>
   ));
@@ -153,21 +153,21 @@ const CalculatorPresenter = props => {
     <div className="topRow">
       <button onClick={() => props.clearDisplay()}>Clear</button>
       <button onClick={() => props.backspace()}>🠘</button>
-      <button onClick={() => props.addNumsToDisplay(" ÷ ")}>÷</button>
-      <button onClick={() => props.addNumsToDisplay(" × ")}>×</button>
-      <button onClick={() => props.addNumsToDisplay(" - ")}>-</button>
+      <button onClick={() => props.addToDisplay(" ÷ ")}>÷</button>
+      <button onClick={() => props.addToDisplay(" × ")}>×</button>
+      <button onClick={() => props.addToDisplay(" - ")}>-</button>
     </div>
   );
   const bottomRow = (
     <div className="bottomRow">
-      <button onClick={() => props.addNumsToDisplay(0)}>0</button>
+      <button onClick={() => props.addToDisplay(0)}>0</button>
       <button onClick={() => props.addDecimalToDisplay(".")}>.</button>
     </div>
   );
 
   const rightColumn = (
     <div className="rightColumn">
-      <button onClick={() => props.addNumsToDisplay(" + ")}>+</button>
+      <button onClick={() => props.addToDisplay(" + ")}>+</button>
       <button onClick={() => props.equals()}>=</button>
     </div>
   );
