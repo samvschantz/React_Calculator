@@ -94,12 +94,14 @@ export default class Calculator extends Component {
       if (operatorArray.indexOf(num) < 2) {
         this.addNumsToDisplay(" " + num + " ");
       } else if (timesOperatorsArray.includes(num)) {
-        //this catches whether or not there is already a multiplication symbol
         if (this.state.display.indexOf("×") > -1) {
-          console.log("caught the condition");
+          this.equals();
         }
         this.addNumsToDisplay(" × ");
       } else if (num === "/") {
+        if (this.state.display.indexOf("÷") > -1) {
+          this.equals();
+        }
         this.addNumsToDisplay(" ÷ ");
       } else if (num === "=" || num === "Enter") {
         this.equals();
@@ -116,12 +118,9 @@ export default class Calculator extends Component {
     let equation = this.state.display;
     let equationString = this.state.display.replace(/\s+/g, "");
     equationString = equationString.replace("÷", "/").replace("×", "*");
-    equationString = equationString.toString();
     let operatorArray = ["+", "-", "=", "*", "/", "x", "X", "Enter"];
     let timesOperatorsArray = ["*", "x", "X"];
-    let total = new Function("return (" + equationString + ")")();
-    //    return (new Function( 'return (' + string + ')' )());
-
+    let total = eval(equationString).toString();
     let historyItem = this.state.display.toString() + " = " + total;
     this.setState({
       display: total,
